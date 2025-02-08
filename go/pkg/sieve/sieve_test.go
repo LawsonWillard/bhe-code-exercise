@@ -10,7 +10,7 @@ import (
 )
 
 func TestNthPrime(t *testing.T) {
-	sieve := NewSieve()
+	sieve := NewPrimeNumberSieve()
 
 	startTime := time.Now()
 	fmt.Println("starting test")
@@ -23,13 +23,13 @@ func TestNthPrime(t *testing.T) {
 	assert.Equal(t, int64(17393), sieve.NthPrime(2000))
 	assert.Equal(t, int64(15485867), sieve.NthPrime(1000000))
 	assert.Equal(t, int64(179424691), sieve.NthPrime(10000000))
-	//assert.Equal(t, int64(2038074751), sieve.NthPrime(100000000)) //not required, just a fun challenge
+	assert.Equal(t, int64(2038074751), sieve.NthPrime(100000000)) //not required, just a fun challenge
 	endTime := time.Now()
 	fmt.Println("ending test, test took", endTime.Sub(startTime))
 }
 
 func FuzzNthPrime(f *testing.F) {
-	sieve := NewSieve()
+	sieve := NewPrimeNumberSieve()
 
 	f.Fuzz(func(t *testing.T, n int64) {
 		if !big.NewInt(sieve.NthPrime(n)).ProbablyPrime(0) {
@@ -37,6 +37,3 @@ func FuzzNthPrime(f *testing.F) {
 		}
 	})
 }
-
-// 6.424408833s
-// 3.275323042s
